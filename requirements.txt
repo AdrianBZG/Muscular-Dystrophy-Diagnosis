@@ -1,0 +1,9 @@
+pandas
+tensorflow-gpu=1.8.0
+keras
+matplotlib
+tifffile
+image_slicer
+PyQt5
+javabridge
+python-bioformats
