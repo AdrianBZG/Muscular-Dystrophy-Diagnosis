@@ -61,8 +61,49 @@ def runLIFtransformation(fileName, show=False, w=1024, h=1024):
 
     # Save
     fileNameGoodExtension = fileNameVar.replace(".lif", ".tif")
-    print(fileNameDir)
+    #print(fileNameDir)
     save_tif(imagedataarray, fileNameGoodExtension, fileNameDir)
+
+def runLIFtransformationList(files, show=False, w=1024, h=1024):
+    javabridge.start_vm(class_path=bioformats.JARS)
+    classpath = javabridge.JClassWrapper('java.lang.System').getProperty('java.class.path')
+
+    for fileName in files:
+        fileNameDir = fileName.split("/")
+        fileNameDir.pop()
+        fileNameDir = "/".join(fileNameDir)
+        
+        fileNameVar = fileName.split("/")[-1]
+        path = fileName.split("/")
+        path.pop()
+        path = "/".join(path)
+        path = fileName
+        imagedataarray = np.zeros((h, w, 3), dtype=np.float32)
+
+        with bioformats.ImageReader(path) as f:
+            zValues = [0,1,2,3,4,5,6,7,8,9]
+
+            for zVal in zValues:
+                data = f.read(z = zVal, rescale=True)
+                channel1data = data[:,:,0]
+                channel2data = data[:,:,1]
+                imagedataarray[:,:,2] += channel1data
+                imagedataarray[:,:,1] += channel2data
+
+            imagedataarray[:,:,2] *= 5
+            imagedataarray[:,:,1] *= 5
+
+        # Show
+        if show:
+            plt.imshow(imagedataarray)
+            plt.show()
+
+        # Save
+        fileNameGoodExtension = fileNameVar.replace(".lif", ".tif")
+        #print(fileNameDir)
+        save_tif(imagedataarray, fileNameGoodExtension, fileNameDir)
+    
+    javabridge.kill_vm()
 
 
 # Just in case you want to use this as standalone script
