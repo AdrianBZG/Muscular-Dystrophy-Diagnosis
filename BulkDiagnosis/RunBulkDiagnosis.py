@@ -12,6 +12,8 @@ __email__ = "adrianrodriguezbazaga@gmail.com"
 # Basic system routines packages
 import os, sys
 
+import argparse
+
 # Keras imports
 from keras import *
 from keras.preprocessing import image
@@ -46,8 +48,22 @@ from CustomModelMetrics import m_precision
 from HelperFunctions import load_image
 from HelperFunctions import flatten
 
+def usage():
+  print("Usage Examples:")
+  print("python RunBulkDiagnosis.py --help")
+  print("python RunBulkDiagnosis.py (--show)")
+  sys.exit(0)
+
+def parse_args():
+    parser = argparse.ArgumentParser(description = "Script for bulk diagnosis of images", epilog = "")
+    parser.add_argument("-s", "--show", help="Whether to show the result of each diagnosis.", dest="show", action='store_true')
+    parser.add_argument("-u", "--usage", help="Usage examples", dest="usage", action = 'store_true')
+    return parser.parse_args()
+
 # SCRIPT
 if __name__ == '__main__':
+
+    args = parse_args()
 
     scriptFolder = sys.path[0]
     weightsFile = scriptFolder + "/config/weights.h5"
@@ -81,7 +97,7 @@ if __name__ == '__main__':
     print("[2] Cleaning results folder")
     for root, subFolders, files in os.walk(resultFolder):
         for file in files:
-            if file.endswith(".png"):
+            if file.endswith(".png") or file.endswith(".csv"):
                 os.remove(resultFolder + file)
 
     print("[3] Loading the CNN model")
@@ -111,10 +127,17 @@ if __name__ == '__main__':
             if file.endswith(".tif"):
                 filesToProcess.append(file)
 
-    print("[7] Running the diagnosis, visualizing the result of each image and saving it")
+    print("[7] Running the diagnosis")
+
+    resultsForCSV = list()
+    resultsForCSV.append("image_name,prediction,probability")
+
     for file in filesToProcess:
+        resultForCSV = ""
+
         # Do the diagnosis for the current file
         currentFileToProcess = transformedFolder + file
+        resultForCSV = resultForCSV + file + ","
            
         # Chop the image in patches and store it in a temp directory
         tempDir = os.path.dirname(os.path.abspath(__file__)) + "/TempDir/"
@@ -165,10 +188,16 @@ if __name__ == '__main__':
 
         if np.count_nonzero(predictions) > (len(predictions) - np.count_nonzero(predictions)):
             predictionText += " (Class: Patient)"
+            resultForCSV = resultForCSV + "patient,"
         elif (len(predictions) - np.count_nonzero(predictions)) > np.count_nonzero(predictions):
             predictionText += " (Class: Control)"
+            resultForCSV = resultForCSV + "control,"
         else:
             predictionText += " (Unsure)"
+            resultForCSV = resultForCSV + "unsure,"
+
+        resultForCSV = resultForCSV + str(round((len(predictions) - np.count_nonzero(predictions))/len(predictions),3))
+        resultsForCSV.append(resultForCSV)
 
         # Remove the temp directory and its content recursively
         shutil.rmtree(tempDir)
@@ -199,7 +228,18 @@ if __name__ == '__main__':
 
         resultFileName = currentFileToProcess.replace(".tif",".png").split("/")[-1]
         resultFileName = resultFolder + resultFileName
+        
+        # Save figure
         plt.savefig(resultFileName, dpi=100)
-        plt.show()
 
-    print("[8] Finished")
+        # Display figure
+        if(args.show):
+            plt.show()
+
+    print("[8] Writing results CSV file")
+
+    with open(resultFolder + "result.csv", 'w+') as file:
+        for element in resultsForCSV:
+            file.write(element + '\n')
+
+    print("[9] Done")
