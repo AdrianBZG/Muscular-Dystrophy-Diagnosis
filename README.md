@@ -2,6 +2,10 @@
 
 Convolutional Neural Network model and diagnosis system implementation of the manuscript "A Convolutional Neural Network for the Automatic Diagnosis of Collagen VI related Muscular Dystrophies", Bazaga et al. (Submitted to Expert Systems With Applications).
 
+# How to cite this software
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2602620.svg)](https://doi.org/10.5281/zenodo.2602620)
+
 # Abstract
 
 The development of machine learning systems for the diagnosis of rare diseases is challenging mainly due the lack of data to study them. Despite this challenge, this paper proposes a system for the Computer Aided Diagnosis (CAD) of low-prevalence, congenital muscular dystrophies from confocal microscopy images. The proposed CAD system relies on a Convolutional Neural Network (CNN) which performs an independent classification for non-overlapping patches tiling the input image, and generates an overall decision summarizing the individual decisions for the patches on the query image. This decision scheme points to the possibly problematic areas in the input images and provides a global quantitative evaluation of the state of the patients, which is fundamental for diagnosis and to monitor the efficiency of therapies.
