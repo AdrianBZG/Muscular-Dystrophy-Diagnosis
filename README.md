@@ -1,14 +1,14 @@
 # Collagen VI-related Muscular Dystrophies Diagnosis
 
-Convolutional Neural Network model and diagnosis system implementation of the manuscript "A Convolutional Neural Network for the Automatic Diagnosis of Collagen VI related Muscular Dystrophies", Bazaga et al. (Submitted to Expert Systems With Applications).
+Convolutional Neural Network model and diagnosis system implementation of the paper "A Convolutional Neural Network for the automatic diagnosis of collagen VI-related muscular dystrophies", Bazaga et al. (Accepted in Applied Soft Computing).
 
 # How to cite this software
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2602620.svg)](https://doi.org/10.5281/zenodo.2602620)
+[![DOI](https://zenodo.org/badge/DOI/10.1016/j.asoc.2019.105772.svg)](https://doi.org/10.1016/j.asoc.2019.105772)
 
 # Abstract
 
-The development of machine learning systems for the diagnosis of rare diseases is challenging mainly due the lack of data to study them. Despite this challenge, this paper proposes a system for the Computer Aided Diagnosis (CAD) of low-prevalence, congenital muscular dystrophies from confocal microscopy images. The proposed CAD system relies on a Convolutional Neural Network (CNN) which performs an independent classification for non-overlapping patches tiling the input image, and generates an overall decision summarizing the individual decisions for the patches on the query image. This decision scheme points to the possibly problematic areas in the input images and provides a global quantitative evaluation of the state of the patients, which is fundamental for diagnosis and to monitor the efficiency of therapies.
+The development of machine learning systems for the diagnosis of rare diseases is challenging, mainly due to the lack of data to study them. This paper surmounts this obstacle and presents the first Computer-Aided Diagnosis (CAD) system for low-prevalence collagen VI-related congenital muscular dystrophies. The proposed CAD system works on images of fibroblast cultures obtained with a confocal microscope and relies on a Convolutional Neural Network (CNN) to classify patches of such images in two classes: samples from healthy persons and samples from persons affected by a collagen VI-related muscular distrophy. This fine-grained classification is then used to generate an overall diagnosis on the query image using a majority voting scheme. The proposed system is advantageous, as it overcomes the lack of training data, points to the possibly problematic areas in the query images, and provides a global quantitative evaluation of the condition of the patients, which is fundamental to monitor the effectiveness of potential therapies. The system achieves a high classification performance, with 95% of accuracy and 92% of precision on randomly selected independent test images, outperforming alternative approaches by a significant margin.
 
 # Overview of the system
 
@@ -22,6 +22,20 @@ probability between 70% and 90%, yellow for patches with probability between 50%
 ![Example Images](https://github.com/AdrianBZG/Muscular-Dystrophy-Diagnosis/blob/master/Media/ReadmeFig1.png)
 
 
-# Preprint
+# Citation
 
-Although the manuscript has been submitted for review to Expert Systems With Applications, a preprint has been available available at [https://arxiv.org/abs/1901.11074](https://arxiv.org/abs/1901.11074).
+You can cite our [https://doi.org/10.1016/j.asoc.2019.105772](paper) using the following BibTeX item:
+
+`@article{BAZAGA2019105772,
+title = "A Convolutional Neural Network for the automatic diagnosis of collagen VI-related muscular dystrophies",
+journal = "Applied Soft Computing",
+volume = "85",
+pages = "105772",
+year = "2019",
+issn = "1568-4946",
+doi = "https://doi.org/10.1016/j.asoc.2019.105772",
+url = "http://www.sciencedirect.com/science/article/pii/S1568494619305538",
+author = "Adrián Bazaga and Mònica Roldán and Carmen Badosa and Cecilia Jiménez-Mallebrera and Josep M. Porta",
+keywords = "Convolutional neural networks, Deep learning, Classification, Computer aided diagnosis, Confocal microscopy images",
+abstract = "The development of machine learning systems for the diagnosis of rare diseases is challenging, mainly due to the lack of data to study them. This paper surmounts this obstacle and presents the first Computer-Aided Diagnosis (CAD) system for low-prevalence collagen VI-related congenital muscular dystrophies. The proposed CAD system works on images of fibroblast cultures obtained with a confocal microscope and relies on a Convolutional Neural Network (CNN) to classify patches of such images in two classes: samples from healthy persons and samples from persons affected by a collagen VI-related muscular distrophy. This fine-grained classification is then used to generate an overall diagnosis on the query image using a majority voting scheme. The proposed system is advantageous, as it overcomes the lack of training data, points to the possibly problematic areas in the query images, and provides a global quantitative evaluation of the condition of the patients, which is fundamental to monitor the effectiveness of potential therapies. The system achieves a high classification performance, with 95% of accuracy and 92% of precision on randomly selected independent test images, outperforming alternative approaches by a significant margin."
+}`
