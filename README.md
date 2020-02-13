@@ -28,18 +28,11 @@ You can cite our [paper](https://doi.org/10.1016/j.asoc.2019.105772) using the f
 
 ```
 @article{BAZAGA2019105772,
-
 title = "A Convolutional Neural Network for the automatic diagnosis of collagen VI-related muscular dystrophies",
-
 journal = "Applied Soft Computing",
-
 year = "2019",
-
 doi = "https://doi.org/10.1016/j.asoc.2019.105772",
-
 url = "http://www.sciencedirect.com/science/article/pii/S1568494619305538",
-
 author = "Adrián Bazaga and Mònica Roldán and Carmen Badosa and Cecilia Jiménez-Mallebrera and Josep M. Porta"
-
 }
 ```
